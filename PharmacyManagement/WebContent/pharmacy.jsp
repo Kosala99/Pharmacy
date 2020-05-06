@@ -1,15 +1,22 @@
-<%@page import="com.Item"%>
+<%@page import="com.Pharmacy"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html>
 <html>
 <head>
+
+<style>
+body {
+    background-image: url("images/page.jpg");
+}
+</style>
+
 <meta charset="ISO-8859-1">
 <title>Pharmacy Management</title>
 
 <link rel="stylesheet" href="Views/bootstrap.min.css">
 <script src="Components/jquery-3.2.1.min.js"></script>
-<script src="Components/items.js"></script>
+<script src="Components/pharmacy.js"></script>
 
 </head>
 <body>
@@ -18,7 +25,7 @@
 		<div class="col-6">
 			<h1>Pharmacy Management</h1>
 			
-			<form id="formItem" name="formItem" method="post" action="items.jsp">
+			<form id="formItem" name="formItem" method="post" action="pharmacy.jsp">
 
 				Bill No:
 				<input id="billNo" name="billNo" type="text" class="form-control form-control-sm">
@@ -36,6 +43,14 @@
 				<input id="medicationDetails" name="medicationDetails" type="text" class="form-control form-control-sm">
 				<br>
 				
+				Doctor Name:
+				<input id="doctorName" name="doctorName" type="text" class="form-control form-control-sm">
+				<br>
+				
+				Email:
+				<input id="email" name="email" type="text" class="form-control form-control-sm">
+				<br>
+				
 				<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary">
 				<input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
 			</form>
@@ -46,7 +61,7 @@
 
 			<div id="divItemsGrid">
 				<%
-					Item itemObj = new Item();
+				Pharmacy itemObj = new Pharmacy();
 					out.print(itemObj.readItems());
 				%>
 			</div>

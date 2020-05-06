@@ -14,18 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Servlet implementation class ItemsAPI
+ * Servlet implementation class PharmacyAPI
  */
-@WebServlet("/ItemsAPI")
-public class ItemsAPI extends HttpServlet {
+@WebServlet("/PharmacyAPI")
+public class PharmacyAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	Item itemObj = new Item();
+	Pharmacy itemObj = new Pharmacy();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ItemsAPI() {
+    public PharmacyAPI() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,7 +46,9 @@ public class ItemsAPI extends HttpServlet {
 		String output = itemObj.insertItem(request.getParameter("billNo"),
 										   request.getParameter("patientName"),
 										   request.getParameter("amount"),
-										   request.getParameter("medicationDetails"));
+										   request.getParameter("medicationDetails"),
+										   request.getParameter("doctorName"),
+										   request.getParameter("email"));
 			
 		response.getWriter().write(output);
 	}
@@ -62,7 +64,9 @@ public class ItemsAPI extends HttpServlet {
 										   paras.get("billNo").toString(),
 										   paras.get("patientName").toString(),
 										   paras.get("amount").toString(),
-										   paras.get("medicationDetails").toString());
+										   paras.get("medicationDetails").toString(),
+										   paras.get("doctorName").toString(),
+										   paras.get("email").toString());
 		
 		response.getWriter().write(output);
 	}

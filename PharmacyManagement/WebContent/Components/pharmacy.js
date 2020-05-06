@@ -32,7 +32,7 @@ $(document).on("click", "#btnSave", function(event)
 	
 	$.ajax(
 	{
-		url : "ItemsAPI",
+		url : "PharmacyAPI",
 		type : method,
 		data : $("#formItem").serialize(),
 		dataType : "text",
@@ -51,6 +51,8 @@ $(document).on("click", ".btnUpdate", function(event)
 	$("#patientName").val($(this).closest("tr").find('td:eq(1)').text());
 	$("#amount").val($(this).closest("tr").find('td:eq(2)').text());
 	$("#medicationDetails").val($(this).closest("tr").find('td:eq(3)').text());
+	$("#doctorName").val($(this).closest("tr").find('td:eq(4)').text());
+	$("#email").val($(this).closest("tr").find('td:eq(5)').text());
 });
 
 function onItemSaveComplete(response, status)
@@ -89,7 +91,7 @@ $(document).on("click", ".btnRemove", function(event)
 {
 	$.ajax(
 	{
-		url : "ItemsAPI",
+		url : "PharmacyAPI",
 		type : "DELETE",
 		data : "billId=" + $(this).data("billid"),
 		dataType : "text",
@@ -133,22 +135,22 @@ function onItemDeleteComplete(response, status)
 
 function validateItemForm()
 {
-	// CODE
+	// Bill no
 	if ($("#billNo").val().trim() == "")
 	{
 		return "Insert Bill No.";
 	}
 	
-	// NAME
+	// P Name
 	if ($("#patientName").val().trim() == "")
 	{
 		return "Insert Patient Name.";
 	}
 	
-	//PRICE-------------------------------
+	//amount
 	if ($("#amount").val().trim() == "")
 	{
-		return "Insert Item Amount.";
+		return "Insert Amount.";
 	}
 	
 	// is numerical value
@@ -162,11 +164,25 @@ function validateItemForm()
 	// convert to decimal price
 	$("#amount").val(parseFloat(tmpPrice).toFixed(2));
 	
-	// DESCRIPTION------------------------
+	// medicationDetails
 	if ($("#medicationDetails").val().trim() == "")
 	{
 		return "Insert Medication Details.";
 	}
+	
+	// Doctor Name
+	if ($("#doctorName").val().trim() == "")
+	{
+		return "Insert Doctor Name.";
+	}
+	
+	
+	// EMAIL
+	if ($("#email").val().trim() == "")
+	{
+		return "Insert Email.";
+	}
+	
 	
 	return true;
 }

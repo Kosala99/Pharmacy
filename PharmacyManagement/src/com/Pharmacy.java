@@ -2,7 +2,7 @@ package com;
 
 import java.sql.*;
 
-public class Item {
+public class Pharmacy {
 	private Connection connect()
 	{
 		Connection con = null;
@@ -20,7 +20,7 @@ public class Item {
 		return con;
 	}
 	
-	public String insertItem(String no, String pName, String amount, String mDetails)
+	public String insertItem(String no, String pName, String amount, String mDetails, String dName, String email)
 	{
 		String output = "";
 		try
@@ -33,7 +33,7 @@ public class Item {
 			}
 			
 			// create a prepared statement
-			String query = " insert into pharmacydb (`billId`,`billNo`,`patientName`,`amount`,`medicationDetails`) values (?, ?, ?, ?, ?)";
+			String query = " insert into pharmacydb (`billId`,`billNo`,`patientName`,`amount`,`medicationDetails`,`doctorName`,`email`) values (?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
@@ -43,8 +43,10 @@ public class Item {
 			preparedStmt.setString(3, pName);
 			preparedStmt.setDouble(4, Double.parseDouble(amount));
 			preparedStmt.setString(5, mDetails);
+			preparedStmt.setString(6, dName);
+			preparedStmt.setString(7, email);
 			
-			// execute the statement
+			
 			preparedStmt.execute();
 			con.close();
 			
@@ -80,6 +82,8 @@ public class Item {
 					+ "<th>Patient Name</th>"
 					+ "<th>Amount</th>"
 					+ "<th>Medication Details</th>"
+					+ "<th>Doctor Name</th>"
+					+ "<th>Email</th>"
 					+ "<th>Update</th>"
 					+ "<th>Remove</th></tr>";
 	
@@ -95,12 +99,16 @@ public class Item {
 				String patientName = rs.getString("patientName");
 				String amount = Double.toString(rs.getDouble("amount"));
 				String medicationDetails = rs.getString("medicationDetails");
+				String doctorName = rs.getString("doctorName");
+				String email = rs.getString("email");
 				
 				// Add into the html table
 				output += "<tr><td><input id='hidItemIDUpdate'name='hidItemIDUpdate' type='hidden' value='" + billId+ "'>" + billNo + "</td>";
 				output += "<td>" + patientName + "</td>";
 				output += "<td>" + amount + "</td>";
 				output += "<td>" + medicationDetails + "</td>";
+				output += "<td>" + doctorName + "</td>";
+				output += "<td>" + email + "</td>";
 			
 				// buttons
 				output += "<td><input name='btnUpdate'type='button' "
@@ -125,7 +133,7 @@ public class Item {
 	}
 	
 	
-	public String updateItem(String ID, String no, String pName, String amount, String mDetails)
+	public String updateItem(String ID, String no, String pName, String amount, String mDetails, String dName, String email)
 	{
 		String output = "";
 		
@@ -139,7 +147,7 @@ public class Item {
 			}
 			
 			// create a prepared statement
-			String query = "UPDATE pharmacydb SET billNo=?,patientName=?,Amount=?,medicationDetails=? WHERE billId=?";
+			String query = "UPDATE pharmacydb SET billNo=?,patientName=?,Amount=?,medicationDetails=?,doctorName=?,email=? WHERE billId=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
 			// binding values
@@ -147,7 +155,9 @@ public class Item {
 			preparedStmt.setString(2, pName);
 			preparedStmt.setDouble(3, Double.parseDouble(amount));
 			preparedStmt.setString(4, mDetails);
-			preparedStmt.setInt(5, Integer.parseInt(ID));
+			preparedStmt.setString(5, dName);
+			preparedStmt.setString(6, email);
+			preparedStmt.setInt(7, Integer.parseInt(ID));
 			
 			// execute the statement
 			preparedStmt.execute();
