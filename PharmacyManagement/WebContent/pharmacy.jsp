@@ -7,7 +7,7 @@
 
 <style>
 body {
-    background-image: url("images/page.jpg");
+    background-image: url("https://wallpaperplay.com/walls/full/0/e/1/13976.jpg");
 }
 </style>
 
